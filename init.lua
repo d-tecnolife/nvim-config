@@ -1,35 +1,14 @@
-local vim = vim
-local Plug = vim.fn['plug#']
-
--- autoload 
-local data_dir = vim.fn.stdpath('data')
-if vim.fn.empty(vim.fn.glob(data_dir .. '/site/autoload/plug.vim')) == 1 then
-  vim.cmd('silent !curl -fLo ' .. data_dir .. '/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
-  vim.o.runtimepath = vim.o.runtimepath
-  vim.cmd('autocmd VimEnter * PlugInstall --sync | source $MYVIMRC')
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
+  })
 end
-
-vim.call('plug#begin')
-
--- telescope
-Plug('nvim-lua/plenary.nvim')
-Plug('nvim-telescope/telescope.nvim', { ['tag'] = '0.1.8' })
-Plug('nvim-telescope/telescope-fzf-native.nvim')
-
--- fzf
-Plug('junegunn/fzf', { ['do'] = function() vim.fn['fzf#install']() end })
-Plug('junegunn/fzf.vim')
-
--- devicons
-Plug('nvim-tree/nvim-web-devicons')
-
--- colorschemes
-Plug('bluz71/vim-nightfly-colors', { ['as'] = 'nightfly' })
-
-vim.call('plug#end')
-
--- load colorscheme
-vim.cmd('silent! colorscheme nightfly')
+vim.opt.rtp:prepend(lazypath)
 
 -- config
 vim.g.mapleader = ","
@@ -38,9 +17,100 @@ vim.keymap.set('i', 'jk', '<Esc>')
 vim.keymap.set('i', '<Esc>', '<nop>')
 vim.opt.number = true
 
--- telescope config
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+require("lazy").setup({
+
+  -- treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    version = false, -- recommend using latest
+    build = ":TSUpdate", -- runs after install/update
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = { "lua", "python", "javascript", "typescript", "html", "css", "json", "vim", "vimdoc" },
+        highlight = {
+          enable = true,
+          -- disable = { "markdown" }, -- optional: disable for specific langs
+        },
+        indent = { enable = true },
+        -- Optional: enable incremental selection
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+          },
+        },
+        -- Optional: enable text objects
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+            },
+          },
+        },
+      })
+    end,
+  },
+
+  -- telescope  + fzf +  plenary 
+  {
+    "nvim-lua/plenary.nvim",
+    lazy = true,
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    tag = "0.1.8",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local builtin = require("telescope.builtin")
+      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
+      vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
+      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
+      vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
+    end,
+  },
+  {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    build = "make",
+    config = function()
+      require("telescope").load_extension("fzf")
+    end,
+  },
+
+  -- devicons
+  {
+    "nvim-tree/nvim-web-devicons",
+    lazy = true,
+  },
+
+  -- colorscheme
+  {
+    "bluz71/vim-nightfly-colors",
+    name = "nightfly",
+    priority = 1000, -- load early for colorscheme
+    config = function()
+      vim.cmd("colorscheme nightfly")
+    end,
+  },
+}, 
+
+  -- lazy.nvim settings
+{
+  ui = {
+    title = "Plugins",
+  },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip", "matchit", "matchparen", "netrwPlugin", "tarPlugin", "tohtml", "tutor", "zipPlugin",
+      },
+    },
+  },
+})
