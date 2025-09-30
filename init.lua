@@ -19,8 +19,10 @@ vim.opt.number = true
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
-  -- lazy setup
+  -- plugins 
 require("lazy").setup({
 
   -- treesitter
@@ -137,7 +139,6 @@ require("lazy").setup({
   }, 
 
   -- lazy.nvim settings
-
   ui = {
     title = "Plugins",
   },
