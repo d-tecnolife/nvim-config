@@ -71,17 +71,32 @@ require("lazy").setup({
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       local builtin = require("telescope.builtin")
-      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope find files" })
+      
+      require('telescope').setup({
+        defaults = {
+          file_ignore_patterns = {
+            "node_modules/",
+            ".git/",
+            "dist/",
+            "build/",
+            "target/",
+            "%.lock",
+	    ".cache/",
+	    ".gradle/",
+	    "snap/",
+          },
+        },
+        pickers = {
+          find_files = {
+            hidden = true,
+          }
+        }
+      })
+      
+      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
       vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live grep" })
       vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope help tags" })
-    end,
-  },
-  {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    build = "make",
-    config = function()
-      require("telescope").load_extension("fzf")
     end,
   },
 
