@@ -16,7 +16,11 @@ vim.opt.clipboard:append { "unnamedplus" }
 vim.keymap.set('i', 'jk', '<Esc>')
 vim.keymap.set('i', '<Esc>', '<nop>')
 vim.opt.number = true
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true
 
+  -- lazy setup
 require("lazy").setup({
 
   -- treesitter
@@ -87,6 +91,26 @@ require("lazy").setup({
     lazy = true,
   },
 
+  -- nvim-tree
+  {
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    lazy = false,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      require("nvim-tree").setup({
+        on_attach = function(bufnr)
+        local api = require("nvim-tree.api")
+        api.config.mappings.default_on_attach(bufnr)
+        vim.keymap.set('n', 'C', api.tree.change_root_to_node, { buffer = bufnr, noremap = true })
+        vim.keymap.set('n', '<Space>', api.node.open.edit, { buffer = bufnr, noremap = true })
+        end,
+    })
+    end,
+  },
+  
   -- colorscheme
   {
     "bluz71/vim-nightfly-colors",
@@ -95,11 +119,10 @@ require("lazy").setup({
     config = function()
       vim.cmd("colorscheme nightfly")
     end,
-  },
-}, 
+  }, 
 
   -- lazy.nvim settings
-{
+
   ui = {
     title = "Plugins",
   },
@@ -111,3 +134,7 @@ require("lazy").setup({
     },
   },
 })
+
+vim.keymap.set("n", "tt", function()
+      require("nvim-tree.api").tree.toggle()
+    end, { desc = "Toggle file explorer" })
