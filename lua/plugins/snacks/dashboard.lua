@@ -36,7 +36,7 @@ return {
 				opts = {
 					limit = 10,
 				},
-				indent = 2,
+				indent = 4,
 				padding = 1,
 			},
 		},
@@ -44,7 +44,8 @@ return {
 			pane = 1,
 			align = "center",
 			section = "terminal",
-			cmd = "starfetch",
+			cmd = "starfetch -c magenta -r",
+			--cmd = "nyancat",
 			height = 12,
 			padding = 1,
 		},
@@ -56,18 +57,6 @@ return {
 				key = "c",
 				desc = "Config",
 				action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
-			},
-			{
-				icon = "󰒲 ",
-				key = "l",
-				desc = "Lazy",
-				action = ":Lazy",
-			},
-			{
-				icon = " ",
-				key = "x",
-				desc = "Lazy Extras",
-				action = ":LazyExtras",
 			},
 			{
 				icon = "󱁤 ",
