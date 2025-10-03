@@ -5,8 +5,9 @@ return {
         {
             section = 'terminal',
             align = 'center',
-            cmd = 'chafa /home/russell/Pictures/hardaf-padded.png --format symbols --stretch --size 20x10 --center on --speed 11',
-            height = 10
+            cmd = 'chafa /home/russell/Pictures/hardaf-padded.png --format symbols --symbols vhalf --stretch --size 27x18 --center on --speed 11',
+            height = 13,
+            padding = 1
         }, {
             align = 'center',
             padding = 1,
@@ -29,6 +30,11 @@ return {
             section = 'recent_files',
             indent = 2,
             padding = 1
+        }, {
+            icon = " ",
+            title = "git status",
+            cmd = "git --no-pager diff --stat -B -M -C",
+            height = 10
         }, {text = {'[q]uit', hl = 'brightred'}, align = 'center', padding = 1},
         {text = '', action = ':Lazy update', key = 'u'}, {
             text = '',
