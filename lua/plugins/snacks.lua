@@ -17,4 +17,7 @@ return {
 		statuscolumn = { enabled = true },
 		words = { enabled = true },
 	},
+  init = function()
+    vim.api.nvim_set_hl(0, "neon", { fg = "#00FF41" })
+  end,
 }

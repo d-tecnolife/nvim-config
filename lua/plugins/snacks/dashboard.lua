@@ -1,31 +1,44 @@
 return {
   width = 72,
   sections = {
+    { padding = 1 },
+    {
+      text = { '[ hardaf ]', hl = 'neon' },
+      align = 'center',
+    },
     {
       section = 'terminal',
       align = 'center',
-      cmd = 'chafa /home/russell/Pictures/hardaf-padded.png --format symbols --size 18x14 --center on --speed 11',
-      height = 12,
+      cmd = 'chafa /home/russell/Pictures/hardaf-padded.png --format symbols --stretch --size 20x10 --center on --speed 11',
+      height = 10,
     },
     {
       align = 'center',
       padding = 1,
       text = {
         { '  [u]pdate ', hl = 'Label' },
-        { '  [s]essions ', hl = '@property' },
-        { '  [l]ast session ', hl = 'Number' },
         { '  [f]iles ', hl = 'DiagnosticInfo' },
+        { '  [g]rep ', hl = '@property' },
+        { '  [l]ast session ', hl = 'Number' },
         { '  [m]ason ', hl = '@string' },
+				{ '  [c]onfig ' },
       },
     },
-    { section = 'startup', padding = 1 },
-    { icon = '󰏓 ', title = 'Projects', section = 'projects', indent = 2, padding = 1 },
-    { icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = 1 },
+    { icon = '󰏓 ', title = 'projects', section = 'projects', indent = 2, padding = 1 },
+    { icon = '', title = 'recent', section = 'recent_files', indent = 2, padding = 1 },
+    { text =
+				{
+				  '[q]uit', hl = 'brightred'
+				},
+				  align = 'center',
+				  padding = 1
+    },
     { text = '', action = ':Lazy update', key = 'u' },
     { text = '', action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})", key = 'c' },
     { text = '', action = ':Mason', key = 'm' },
-    { text = '', action = ':Telescope find_files', key = 'f' },
+    { text = '', action = ':Telescope find_files cwd=~/', key = 'f' },
     { text = '', action = ':lua require("persistence").load({ last = true })', key = 'l' },
-    { text = '', action = ':lua require("persistence").select()', key = 's' },
+    { text = '', action = ':Telescope live_grep', key = 'g' },
+    { text = '', action = ':qa!', key = 'q'},
   },
 }

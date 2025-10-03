@@ -15,5 +15,10 @@ return {
 		vim.api.nvim_set_hl(0, "LineNr", { bg = "none" })
 		vim.api.nvim_set_hl(0, "LineNrAbove", { bg = "none" })
 		vim.api.nvim_set_hl(0, "LineNrBelow", { bg = "none" })
+
+    -- custom highlights
+    vim.api.nvim_set_hl(0, "neon", { fg = "#39FF14" })
+    vim.api.nvim_set_hl(0, "brightred", { fg = "#FF3131" })
+
 	end,
 }
