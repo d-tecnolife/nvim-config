@@ -47,7 +47,7 @@ return {
       jsonc = { "prettier" },
 
       -- Lua
-      lua = { "stylua" },
+      lua = { "lua-format" },
 
       -- Markdown
       markdown = { "prettier" },
