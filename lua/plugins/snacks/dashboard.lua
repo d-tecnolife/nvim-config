@@ -24,25 +24,20 @@ return {
                 {'  [l]ast session ', hl = 'Number'},
                 {'  [m]ason ', hl = '@string'}, {'  [c]onfig '}
             }
-        }, {
-            icon = '󰏓 ',
-            title = 'projects',
-            section = 'projects',
-            indent = 2,
+        }, {title = '[p]rojects', section = 'projects', padding = 1},
+        {title = '[r]ecent', section = 'recent_files', limit = 3}, {
+            section = "terminal",
+            enabled = function() return Snacks.git.get_root() ~= nil end,
+            cmd = "echo '' && echo ' git status' && echo '' && git --no-pager diff --stat -B -M -C",
+            hl = "Statement",
+            height = 5,
             padding = 1
-        }, {
-            icon = '',
-            title = 'recent',
-            section = 'recent_files',
-            indent = 2,
+        },
+        {
+            text = {'[q]uit', hl = 'DiagnosticError'},
+            align = 'center',
             padding = 1
-        }, {
-            icon = " ",
-            title = "git status",
-            cmd = "git --no-pager diff --stat -B -M -C",
-            height = 10
-        }, {text = {'[q]uit', hl = 'brightred'}, align = 'center', padding = 1},
-        {text = '', action = ':Lazy update', key = 'u'}, {
+        }, {text = '', action = ':Lazy update', key = 'u'}, {
             text = '',
             action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
             key = 'c'
@@ -51,7 +46,13 @@ return {
             text = '',
             action = ':lua require("persistence").load({ last = true })',
             key = 'l'
-        }, {text = '', action = ':Telescope live_grep', key = 'g'},
+        },
+        {
+            text = '',
+            action = ":Telescope find_files cwd=~/nolife/projects",
+            key = 'p'
+        }, {text = '', action = ":Telescope oldfiles", key = 'r'},
+        {text = '', action = ':Telescope live_grep', key = 'g'},
         {text = '', action = ':qa!', key = 'q'}
     }
 }
