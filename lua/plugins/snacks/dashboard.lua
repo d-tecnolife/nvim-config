@@ -1,8 +1,14 @@
 return {
     width = 72,
     sections = {
-        {padding = 1}, {text = {'[ hardaf ]', hl = 'neon'}, align = 'center'},
-        {
+        {padding = 1}, {
+            section = 'terminal',
+            align = 'center',
+            cmd = 'printf "%*s\n" $(((72 + $(echo "[ $(whoami)@$(hostname) ]" | wc -c)) / 2)) "[ $(whoami)@$(hostname) ]"',
+            hl = 'neon',
+            padding = 0,
+            height = 2
+        }, {
             section = 'terminal',
             align = 'center',
             cmd = 'chafa /home/russell/Pictures/hardaf-padded.png --format symbols --symbols vhalf --stretch --size 27x18 --center on --speed 11',
