@@ -25,7 +25,8 @@ return {
                 {'  [m]ason ', hl = '@string'}, {'  [c]onfig '}
             }
         }, {title = '[p]rojects', section = 'projects', padding = 1},
-        {title = '[r]ecent', section = 'recent_files', limit = 3}, {
+        {title = '[r]ecent', section = 'recent_files', limit = 3, padding = 1},
+        {
             section = "terminal",
             enabled = function() return Snacks.git.get_root() ~= nil end,
             cmd = "echo '' && echo ' git status' && echo '' && git --no-pager diff --stat -B -M -C",

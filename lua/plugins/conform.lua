@@ -1,89 +1,89 @@
 return {
-  "stevearc/conform.nvim",
-  event = { "BufWritePre" },
-  cmd = { "ConformInfo" },
-  keys = {
-    {
-      "<leader>cf",
-      function()
-        require("conform").format({ async = true, lsp_fallback = true })
-      end,
-      mode = "",
-      desc = "Format buffer",
+    "stevearc/conform.nvim",
+    event = {"BufWritePre"},
+    cmd = {"ConformInfo"},
+    keys = {
+        {
+            "<leader>cf",
+            function()
+                require("conform").format({async = true, lsp_fallback = true})
+            end,
+            mode = "",
+            desc = "Format buffer"
+        }
     },
-  },
-  opts = {
-    formatters_by_ft = {
-      -- Bash
-      bash = { "shfmt" },
-      sh = { "shfmt" },
+    opts = {
+        formatters_by_ft = {
+            -- Bash
+            bash = {"shfmt"},
+            sh = {"shfmt"},
 
-      -- C/C++
-      c = { "clang-format" },
-      cpp = { "clang-format" },
+            -- C/C++
+            c = {"clang-format"},
+            cpp = {"clang-format"},
 
-      -- CSS/SCSS/Less
-      css = { "prettier" },
-      scss = { "prettier" },
-      less = { "prettier" },
+            -- CSS/SCSS/Less
+            css = {"prettier"},
+            scss = {"prettier"},
+            less = {"prettier"},
 
-      -- Dockerfile
-      dockerfile = { "dockerfilelint" },
+            -- Dockerfile
+            dockerfile = {"dockerfilelint"},
 
-      -- HTML
-      html = { "prettier" },
+            -- HTML
+            html = {"prettier"},
 
-      -- Java
-      java = { "google-java-format" },
+            -- Java
+            java = {"google-java-format"},
 
-      -- JavaScript/TypeScript
-      javascript = { "prettier" },
-      javascriptreact = { "prettier" },
-      typescript = { "prettier" },
-      typescriptreact = { "prettier" },
+            -- JavaScript/TypeScript
+            javascript = {"prettier"},
+            javascriptreact = {"prettier"},
+            typescript = {"prettier"},
+            typescriptreact = {"prettier"},
 
-      -- JSON
-      json = { "prettier" },
-      jsonc = { "prettier" },
+            -- JSON
+            json = {"prettier"},
+            jsonc = {"prettier"},
 
-      -- Lua
-      lua = { "lua-format" },
+            -- Lua
+            lua = {"lua-format"},
 
-      -- Markdown
-      markdown = { "prettier" },
+            -- Markdown
+            markdown = {"prettier"},
 
-      -- PHP
-      php = { "php-cs-fixer" },
+            -- PHP
+            php = {"php-cs-fixer"},
 
-      -- PowerShell
-      ps1 = { "powershell" },
+            -- PowerShell
+            ps1 = {"powershell"},
 
-      -- Python
-      python = { "black", "isort" },
+            -- Python
+            python = {"black", "isort"},
 
-      -- Ruby
-      ruby = { "rubocop" },
+            -- Ruby
+            ruby = {"rubocop"},
 
-      -- SQL
-      sql = { "sql-formatter" },
+            -- SQL
+            sql = {"sql-formatter"},
 
-      -- Systemd
-      systemd = {},
+            -- Systemd
+            systemd = {},
 
-      -- Terraform
-      terraform = { "terraform_fmt" },
-      tf = { "terraform_fmt" },
+            -- Terraform
+            terraform = {"terraform_fmt"},
+            tf = {"terraform_fmt"},
 
-      -- YAML
-      yaml = { "prettier" },
+            -- YAML
+            yaml = {"yamlfmt"},
 
-      -- Vue
-      vue = { "prettier" },
-    },
-    format_on_save = {
-      -- Enable format on save (optional)
-      timeout_ms = 500,
-      lsp_fallback = true,
-    },
-  },
+            -- Vue
+            vue = {"prettier"}
+        },
+        format_on_save = {
+            -- Enable format on save (optional)
+            timeout_ms = 500,
+            lsp_fallback = true
+        }
+    }
 }
