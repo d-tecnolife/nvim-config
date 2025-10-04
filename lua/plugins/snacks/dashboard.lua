@@ -11,8 +11,8 @@ return {
         }, {
             section = 'terminal',
             align = 'center',
-            cmd = 'chafa /home/russell/Pictures/hardaf-padded.png --format symbols --symbols vhalf --stretch --size 27x18 --center on --speed 11',
-            height = 13,
+            cmd = 'chafa ~/.config/nvim/lua/plugins/snacks/holyspirit.png --format symbols --symbols quad --stretch --size 72x14 --center on --speed 11',
+            height = 14,
             padding = 1
         }, {
             align = 'center',
